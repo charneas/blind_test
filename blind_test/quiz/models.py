@@ -11,6 +11,7 @@ class Song(models.Model):
     song_title = models.CharField(max_length=200)
     song_yeardate = models.IntegerField()
     song_writer = models.CharField(max_length=200)
+    song_link = models.CharField(max_length=300)
     song_origin = models.ForeignKey(Country, on_delete=models.CASCADE)
 
     def __str__(self):

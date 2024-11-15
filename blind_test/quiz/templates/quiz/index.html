@@ -81,10 +81,13 @@
 
     <!-- Section principale -->
     <div class="jumbotron">
-        <h1 class="display-4">Cououc</h1>
+        <h1 class="display-4">Coucou</h1>
         <p class="lead">Choisis ce que tu veux faire</p>
         <!-- Boutons personnalisés -->
-        <a class="btn btn-custom btn-lg mr-2" href="#" role="button">Ajouter Song</a>
+        <form method="post">
+            {% csrf_token %}
+            <button class="btn btn-custom btn-lg mr-2" href="/quiz/NewSong.html" role="button" type="submit">Add Song</a>
+        </form>
         <a class="btn btn-custom btn-lg" href="#" role="button">Rejoindre une Partie</a>
     </div>
 

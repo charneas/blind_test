@@ -1,18 +1,28 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.template import RequestContext
 from django import forms
+from .models import Song
 
-class NewSongForms(forms.Form):
-    song_title = forms.CharField(max_length=200)
-    song_yeardate = forms.IntegerField()
-    song_writer = forms.CharField(max_length=200)
-    song_origin = forms.CharField(max_length=30)
-    song_link = forms.CharField(max_length=300)
+class NewSongForms(forms.ModelForm):
+    class Meta:
+        model = Song
+        fields = "__all__"
+
+def AddSong(request):
+    context = RequestContext(request)
+    if request.method == 'POST':
+        form = NewSongForms(request.POST)
+        
+    if form.is_valid():
+        form.save(commit=True)
+        return render(request, "quiz/Newsong_success.html")
 
 def index(request):
-    return render(request, "quiz/index.html")
+    if 'NewSong' in request.POST:
+        context = {'form' : NewSongForms()}
+        return render(request,"./quiz/NewSong.html",context)
+    if 'AddSong' in request.POST:
+        AddSong(request)
+    else:
+        return render(request, "quiz/index.html")
 
-def NewSong(request):
-    context = {}
-    context['NewSongForm'] = NewSongForms
-    return render(request,"./quiz/NewSong.html",context)

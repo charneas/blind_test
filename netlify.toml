@@ -1,2 +1,0 @@
-[build]
-command = "python blind_test/manage.py collectstatic --noinput" publish = ""

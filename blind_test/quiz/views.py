@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.template import RequestContext
 from django import forms
 from .models import Song
+from .core.blindtest import chose_song, download_music
 
 class NewSongForms(forms.ModelForm):
     class Meta:
@@ -23,6 +24,12 @@ def index(request):
         return render(request,"./quiz/NewSong.html",context)
     if 'AddSong' in request.POST:
         AddSong(request)
+    if 'Join' in request.POST:
+        song = chose_song.main()[3]
+        #song_path, filename = download_music.download(song)
+        #song_path = 'http://127.0.0.1:8000/quiz/TemporaryName.Mp4'
+        context = {'url' : song}
+        return render(request, 'quiz/play_song.html', context)
     else:
         return render(request, "quiz/index.html")
 
